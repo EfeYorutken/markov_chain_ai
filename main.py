@@ -13,11 +13,17 @@ def compute_text(dic : dict[str, dict[str,int]], current_word : str, step : int)
     rint = r.randint(0,max_int-1)
     next_word = ""
     smallest_dif = 999
-    for potantial in mini:
-        if abs(rint - mini[potantial]) < smallest_dif:
-            smallest_dif = abs(rint - mini[potantial])
-            next_word = potantial
+
+    total_weight = sum(mini.values())
+    rand_val = r.uniform(0,total_weight)
+
+    current_weight = 0
+    for key,weight in mini.items():
+        current_weight += weight
+        if rand_val < current_weight:
+            next_word = key
     return next_word + " " +compute_text(dic,next_word,step-1)
+
 
 def generate(example_text : str, output_length : int) -> str:
 
